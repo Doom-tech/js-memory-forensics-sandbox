@@ -232,7 +232,8 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('md__r_e_a_d_m_
 <div class="line">  --max-region-mb=128 \</div>
 <div class="line">  --skip-file-backed \</div>
 <div class="line">  samples/harmless_obfuscated.js</div>
-</div><!-- fragment --><p>На macOS часть с <span class="tt">/proc/self/maps</span> не работает, потому что это Linux-механизм. Зато V8-запуск, тесты и heap snapshot работают нормально.</p>
+</div><!-- fragment --><p>Небольшой нюанс: путь в <span class="tt">--out</span> считается от той папки, из которой запускается команда. Если зайти в <span class="tt">build</span> и запустить <span class="tt">./js-memory-sandbox</span>, то папка <span class="tt">analysis_out</span> появится внутри <span class="tt">build</span>. Сейчас программа в конце специально печатает полный путь к <span class="tt">report.md</span>, чтобы не приходилось гадать, куда она всё положила.</p>
+<p>На macOS часть с <span class="tt">/proc/self/maps</span> не работает, потому что это Linux-механизм. Зато V8-запуск, тесты и heap snapshot работают нормально.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
 Что получается на выходе</h1>
 <p>После анализа создаётся папка <span class="tt">analysis_out</span>:</p>

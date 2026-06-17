@@ -209,6 +209,7 @@ void writeMainReport(
 int main(int argc, char** argv) {
     try {
         AppConfig app = parseArgs(argc, argv);
+        app.outputDir = std::filesystem::absolute(app.outputDir).lexically_normal();
         std::filesystem::create_directories(app.outputDir);
 
         V8Runtime runtime(argv[0], app.maxOldSpaceMb);
@@ -326,7 +327,7 @@ int main(int argc, char** argv) {
             trackedLocationError
         );
 
-        std::cout << "[*] Report: " << (app.outputDir / "report.md") << "\n";
+        std::cout << "[*] Report: " << (app.outputDir / "report.md").string() << "\n";
         return result.ok && memoryDumpError.empty() &&
                        stringExtractionError.empty() && trackedLocationError.empty()
                    ? 0
