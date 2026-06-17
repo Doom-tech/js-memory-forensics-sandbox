@@ -1,0 +1,23 @@
+.DS_Store
+
+# CMake/build outputs
+build/
+build-*/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+
+# Local analysis artifacts
+analysis_out/
+analysis_out_*/
+memory/
+*.bin
+
+# Editor/local files
+.idea/
+.vscode/
+*.swp
+*.tmp
