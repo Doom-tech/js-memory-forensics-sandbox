@@ -125,7 +125,13 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('md_docs_2user_
 <p>Программа помогает посмотреть, какие строки появляются в памяти после выполнения обфусцированного JavaScript. Например, если ссылка или команда собирается через <span class="tt">String.fromCharCode</span>, <span class="tt">atob</span> или конкатенацию, её может не быть в исходном файле, но она появится во время работы скрипта.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
 Сборка</h1>
-<p>На macOS зависимости можно поставить через Homebrew:</p>
+<p>Если на Linux CMake ругается <span class="tt">No CMAKE_CXX_COMPILER</span>, значит сначала нужно поставить компилятор и базовые инструменты сборки:</p>
+<div class="fragment"><div class="line"># Ubuntu/Debian</div>
+<div class="line">sudo apt update</div>
+<div class="line">sudo apt install -y build-essential cmake doxygen git pkg-config</div>
+</div><!-- fragment --><p>В проекте для этого есть готовый скрипт:</p>
+<div class="fragment"><div class="line">bash scripts/install_ubuntu_deps.sh</div>
+</div><!-- fragment --><p>На macOS зависимости можно поставить через Homebrew:</p>
 <div class="fragment"><div class="line">brew install v8 doxygen</div>
 </div><!-- fragment --><p>Дальше обычная сборка:</p>
 <div class="fragment"><div class="line">cmake -S . -B build -DJSFS_REQUIRE_V8=ON</div>

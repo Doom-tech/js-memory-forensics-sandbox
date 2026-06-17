@@ -77,6 +77,27 @@ js-memory-forensics-sandbox/
 - Doxygen, потому что HTML-документация собирается автоматически;
 - V8 development package для реального запуска JS.
 
+Если на Linux CMake пишет `No CMAKE_CXX_COMPILER`, это значит, что в системе
+нет C++ компилятора. Это лечится установкой обычных build tools:
+
+```bash
+# Ubuntu/Debian
+sudo apt update
+sudo apt install -y build-essential cmake doxygen git pkg-config
+
+# Fedora
+sudo dnf install -y gcc-c++ cmake make doxygen git pkg-config
+
+# Arch
+sudo pacman -S --needed base-devel cmake doxygen git pkgconf
+```
+
+Для Ubuntu/Debian я ещё оставил маленький скрипт:
+
+```bash
+bash scripts/install_ubuntu_deps.sh
+```
+
 На macOS я ставил зависимости так:
 
 ```bash

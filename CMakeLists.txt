@@ -1,6 +1,20 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(js_memory_forensics_sandbox LANGUAGES CXX)
+project(js_memory_forensics_sandbox LANGUAGES NONE)
+
+include(CheckLanguage)
+check_language(CXX)
+if(NOT CMAKE_CXX_COMPILER)
+    message(FATAL_ERROR
+        "CMake did not find a C++ compiler. Install one first, for example:\n"
+        "  Ubuntu/Debian: sudo apt update && sudo apt install -y build-essential cmake\n"
+        "  Fedora:        sudo dnf install -y gcc-c++ cmake make\n"
+        "  Arch:          sudo pacman -S --needed base-devel cmake\n"
+        "Then rerun: cmake -S . -B build"
+    )
+endif()
+
+enable_language(CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

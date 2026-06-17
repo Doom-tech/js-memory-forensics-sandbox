@@ -48,6 +48,25 @@ private:
     std::ofstream& out_;
 };
 
+template <typename ExternalT = v8::External>
+v8::Local<v8::External> makeSandboxExternal(v8::Isolate* isolate, void* value) {
+    if constexpr (requires { ExternalT::New(isolate, value, 0); }) {
+        return ExternalT::New(isolate, value, 0);
+    } else {
+        return ExternalT::New(isolate, value);
+    }
+}
+
+template <typename ExternalT = v8::External>
+void* unwrapSandboxExternal(v8::Local<v8::Value> data) {
+    v8::Local<ExternalT> external = v8::Local<ExternalT>::Cast(data);
+    if constexpr (requires { external->Value(0); }) {
+        return external->Value(0);
+    } else {
+        return external->Value();
+    }
+}
+
 } // namespace
 
 class V8Runtime::Impl {
@@ -244,8 +263,7 @@ private:
         v8::HandleScope handleScope(isolate_);
 
         v8::Local<v8::ObjectTemplate> global = v8::ObjectTemplate::New(isolate_);
-        v8::Local<v8::External> self =
-            v8::External::New(isolate_, this, v8::kExternalPointerTypeTagDefault);
+        v8::Local<v8::External> self = makeSandboxExternal(isolate_, this);
 
         global->Set(
             v8::String::NewFromUtf8Literal(isolate_, "print"),
@@ -282,9 +300,7 @@ private:
         }
 
         v8::Isolate* isolate = args.GetIsolate();
-        auto* self = static_cast<JsSandbox::Impl*>(
-            v8::Local<v8::External>::Cast(args.Data())->Value(v8::kExternalPointerTypeTagDefault)
-        );
+        auto* self = static_cast<JsSandbox::Impl*>(unwrapSandboxExternal(args.Data()));
 
         TrackedValue item;
         item.name = toUtf8(isolate, args[0]);

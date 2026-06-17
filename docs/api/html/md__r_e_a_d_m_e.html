@@ -179,7 +179,19 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('md__r_e_a_d_m_
 <li>Doxygen, потому что HTML-документация собирается автоматически;</li>
 <li>V8 development package для реального запуска JS.</li>
 </ul>
-<p>На macOS я ставил зависимости так:</p>
+<p>Если на Linux CMake пишет <span class="tt">No CMAKE_CXX_COMPILER</span>, это значит, что в системе нет C++ компилятора. Это лечится установкой обычных build tools:</p>
+<div class="fragment"><div class="line"># Ubuntu/Debian</div>
+<div class="line">sudo apt update</div>
+<div class="line">sudo apt install -y build-essential cmake doxygen git pkg-config</div>
+<div class="line"> </div>
+<div class="line"># Fedora</div>
+<div class="line">sudo dnf install -y gcc-c++ cmake make doxygen git pkg-config</div>
+<div class="line"> </div>
+<div class="line"># Arch</div>
+<div class="line">sudo pacman -S --needed base-devel cmake doxygen git pkgconf</div>
+</div><!-- fragment --><p>Для Ubuntu/Debian я ещё оставил маленький скрипт:</p>
+<div class="fragment"><div class="line">bash scripts/install_ubuntu_deps.sh</div>
+</div><!-- fragment --><p>На macOS я ставил зависимости так:</p>
 <div class="fragment"><div class="line">brew install v8 doxygen</div>
 </div><!-- fragment --><p>Если V8 не найден, проект может собраться с диагностической заглушкой. Но для проверки полноценной версии лучше включить строгий режим:</p>
 <div class="fragment"><div class="line">cmake -S . -B build -DJSFS_REQUIRE_V8=ON</div>

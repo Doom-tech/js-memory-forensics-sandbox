@@ -11,6 +11,21 @@
 
 ## Сборка
 
+Если на Linux CMake ругается `No CMAKE_CXX_COMPILER`, значит сначала нужно
+поставить компилятор и базовые инструменты сборки:
+
+```bash
+# Ubuntu/Debian
+sudo apt update
+sudo apt install -y build-essential cmake doxygen git pkg-config
+```
+
+В проекте для этого есть готовый скрипт:
+
+```bash
+bash scripts/install_ubuntu_deps.sh
+```
+
 На macOS зависимости можно поставить через Homebrew:
 
 ```bash
