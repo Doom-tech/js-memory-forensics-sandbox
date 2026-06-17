@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_memory_d
 </div><!--header-->
 <div class="contents">
 
-<p>Read memory maps and dump readable regions from the current process.  
+<p>Читает карту памяти процесса и дампит доступные для чтения регионы.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="memory__dumper_8hpp_source.html">memory_dumper.hpp</a>&gt;</code></p>
@@ -127,19 +127,19 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_memory_d
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab6ae83781991ab95a9e3f5dadd20250e" id="r_ab6ae83781991ab95a9e3f5dadd20250e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab6ae83781991ab95a9e3f5dadd20250e">MemoryDumper</a> (std::filesystem::path mapsPath=<a class="el" href="#a24ff9fc3f4c7b15ec9dcaf18764ef946">defaultLinuxMapsPath</a>())</td></tr>
-<tr class="memdesc:ab6ae83781991ab95a9e3f5dadd20250e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a dumper using a maps file path.  <br /></td></tr>
+<tr class="memdesc:ab6ae83781991ab95a9e3f5dadd20250e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создаёт dumper с заданным maps-файлом.  <br /></td></tr>
 <tr class="memitem:a17d210cf43d45d8e906657b9699fbadb" id="r_a17d210cf43d45d8e906657b9699fbadb"><td class="memItemLeft">std::vector&lt; <a class="el" href="struct_dumped_region.html">DumpedRegion</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a17d210cf43d45d8e906657b9699fbadb">dumpReadableRegions</a> (const std::filesystem::path &amp;outputDir, bool includeFileBacked, std::optional&lt; std::uint64_t &gt; maxRegionBytes) const</td></tr>
-<tr class="memdesc:a17d210cf43d45d8e906657b9699fbadb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump readable regions from the current process.  <br /></td></tr>
+<tr class="memdesc:a17d210cf43d45d8e906657b9699fbadb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Дампит readable-регионы памяти текущего процесса.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a24ff9fc3f4c7b15ec9dcaf18764ef946" id="r_a24ff9fc3f4c7b15ec9dcaf18764ef946"><td class="memItemLeft">static std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a24ff9fc3f4c7b15ec9dcaf18764ef946">defaultLinuxMapsPath</a> ()</td></tr>
-<tr class="memdesc:a24ff9fc3f4c7b15ec9dcaf18764ef946"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build the default Linux maps path.  <br /></td></tr>
+<tr class="memdesc:a24ff9fc3f4c7b15ec9dcaf18764ef946"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает стандартный путь к maps-файлу текущего Linux-процесса.  <br /></td></tr>
 <tr class="memitem:a49535f29b048c4cbb93cc5eed6573828" id="r_a49535f29b048c4cbb93cc5eed6573828"><td class="memItemLeft">static std::vector&lt; <a class="el" href="struct_memory_region.html">MemoryRegion</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a49535f29b048c4cbb93cc5eed6573828">readProcessMaps</a> (const std::filesystem::path &amp;mapsPath)</td></tr>
-<tr class="memdesc:a49535f29b048c4cbb93cc5eed6573828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse all valid mappings from a maps-compatible file.  <br /></td></tr>
+<tr class="memdesc:a49535f29b048c4cbb93cc5eed6573828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Читает все корректные регионы из maps-файла.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Read memory maps and dump readable regions from the current process. </p>
+<div class="textblock"><p>Читает карту памяти процесса и дампит доступные для чтения регионы. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab6ae83781991ab95a9e3f5dadd20250e" name="ab6ae83781991ab95a9e3f5dadd20250e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab6ae83781991ab95a9e3f5dadd20250e">&#9670;&#160;</a></span>MemoryDumper()</h2>
@@ -164,10 +164,10 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Create a dumper using a maps file path. </p>
+<p>Создаёт dumper с заданным maps-файлом. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mapsPath</td><td>Path to a Linux maps-compatible file. </td></tr>
+    <tr><td class="paramname">mapsPath</td><td>Путь к Linux maps-совместимому файлу. </td></tr>
   </table>
   </dd>
 </dl>
@@ -198,8 +198,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Build the default Linux maps path. </p>
-<dl class="section return"><dt>Returns</dt><dd>Path to the current process maps pseudo-file. </dd></dl>
+<p>Возвращает стандартный путь к maps-файлу текущего Linux-процесса. </p>
+<dl class="section return"><dt>Returns</dt><dd>Путь <span class="tt">/proc/self/maps</span>, собранный без захардкоженных разделителей. </dd></dl>
 
 </div>
 </div>
@@ -227,19 +227,19 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Dump readable regions from the current process. </p>
+<p>Дампит readable-регионы памяти текущего процесса. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">outputDir</td><td>Directory that receives raw region dump files. </td></tr>
-    <tr><td class="paramname">includeFileBacked</td><td>True to dump file-backed mappings as well as anonymous mappings. </td></tr>
-    <tr><td class="paramname">maxRegionBytes</td><td>Optional cap for bytes copied from each mapping. </td></tr>
+    <tr><td class="paramname">outputDir</td><td>Папка, куда будут записаны raw dump-файлы. </td></tr>
+    <tr><td class="paramname">includeFileBacked</td><td>true, если нужно дампить не только anonymous regions, но и file-backed mappings библиотек/бинарей. </td></tr>
+    <tr><td class="paramname">maxRegionBytes</td><td>Необязательный лимит байтов для каждого региона. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Metadata for every dump file that was written.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Метаданные для каждого записанного dump-файла.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>on unsupported platforms or filesystem errors. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>если платформа не поддерживается или произошла ошибка файловой системы. </td></tr>
   </table>
   </dd>
 </dl>
@@ -269,17 +269,18 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Parse all valid mappings from a maps-compatible file. </p>
+<p>Читает все корректные регионы из maps-файла. </p>
+<p>Битые строки пропускаются, потому что в тестах и ручном анализе удобнее получить максимум валидных регионов, а не падать из-за одной плохой строки.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mapsPath</td><td>Path to a Linux maps-compatible file. </td></tr>
+    <tr><td class="paramname">mapsPath</td><td>Путь к Linux maps-совместимому файлу. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>List of parsed memory regions.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Список распарсенных регионов памяти.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>if the file cannot be opened. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>если maps-файл нельзя открыть. </td></tr>
   </table>
   </dd>
 </dl>

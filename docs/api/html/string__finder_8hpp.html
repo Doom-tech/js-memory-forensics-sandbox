@@ -129,22 +129,22 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('string__finder
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:StringScanOptions" id="r_StringScanOptions"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_string_scan_options.html">StringScanOptions</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Limits used by raw-memory string extraction.  <a href="struct_string_scan_options.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Настройки извлечения строк из raw memory dump.  <a href="struct_string_scan_options.html#details">More...</a><br /></td></tr>
 <tr class="memitem:StringScanSummary" id="r_StringScanSummary"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_string_scan_summary.html">StringScanSummary</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counters collected while scanning memory dumps.  <a href="struct_string_scan_summary.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Счётчики, собранные во время сканирования дампов памяти.  <a href="struct_string_scan_summary.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TrackedLocation" id="r_TrackedLocation"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_tracked_location.html">TrackedLocation</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw-memory location of a value previously marked in JavaScript.  <a href="struct_tracked_location.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Место в raw dump, где найдено значение, ранее отмеченное в JavaScript.  <a href="struct_tracked_location.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a4dc4a32f3f99d8b0511f86a2d050da9a" id="r_a4dc4a32f3f99d8b0511f86a2d050da9a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4dc4a32f3f99d8b0511f86a2d050da9a">isSuspiciousString</a> (const std::string &amp;value)</td></tr>
-<tr class="memdesc:a4dc4a32f3f99d8b0511f86a2d050da9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check one extracted string against built-in suspicious indicators.  <br /></td></tr>
+<tr class="memdesc:a4dc4a32f3f99d8b0511f86a2d050da9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверяет извлечённую строку по встроенным подозрительным индикаторам.  <br /></td></tr>
 <tr class="memitem:a39121f990c6c5d6d23d922b75ae029a0" id="r_a39121f990c6c5d6d23d922b75ae029a0"><td class="memItemLeft"><a class="el" href="struct_string_scan_summary.html">StringScanSummary</a>&#160;</td><td class="memItemRight"><a class="el" href="#a39121f990c6c5d6d23d922b75ae029a0">extractStrings</a> (const std::vector&lt; <a class="el" href="struct_dumped_region.html">DumpedRegion</a> &gt; &amp;regions, const std::filesystem::path &amp;stringsReport, const std::filesystem::path &amp;hitsReport, <a class="el" href="struct_string_scan_options.html">StringScanOptions</a> options)</td></tr>
-<tr class="memdesc:a39121f990c6c5d6d23d922b75ae029a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract printable ASCII and UTF-16LE strings from memory dumps.  <br /></td></tr>
+<tr class="memdesc:a39121f990c6c5d6d23d922b75ae029a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Извлекает печатные ASCII и UTF-16LE строки из файлов дампа памяти.  <br /></td></tr>
 <tr class="memitem:aea43e4520fe2375e93e0ecc7d9cbea50" id="r_aea43e4520fe2375e93e0ecc7d9cbea50"><td class="memItemLeft">std::vector&lt; <a class="el" href="struct_tracked_location.html">TrackedLocation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aea43e4520fe2375e93e0ecc7d9cbea50">locateTrackedValues</a> (const std::vector&lt; <a class="el" href="struct_dumped_region.html">DumpedRegion</a> &gt; &amp;regions, const std::vector&lt; <a class="el" href="struct_tracked_value.html">TrackedValue</a> &gt; &amp;trackedValues, size_t maxHitsPerValue)</td></tr>
-<tr class="memdesc:aea43e4520fe2375e93e0ecc7d9cbea50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search raw dumps for values pinned through mark(name, value).  <br /></td></tr>
+<tr class="memdesc:aea43e4520fe2375e93e0ecc7d9cbea50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ищет в raw dump значения, закреплённые через <span class="tt">mark(name, value)</span>.  <br /></td></tr>
 <tr class="memitem:a2009432dbb2fe7fb43f19e3c5f6ad3b5" id="r_a2009432dbb2fe7fb43f19e3c5f6ad3b5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2009432dbb2fe7fb43f19e3c5f6ad3b5">writeTrackedLocations</a> (const std::filesystem::path &amp;path, const std::vector&lt; <a class="el" href="struct_tracked_location.html">TrackedLocation</a> &gt; &amp;locations)</td></tr>
-<tr class="memdesc:a2009432dbb2fe7fb43f19e3c5f6ad3b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write tracked value locations as TSV.  <br /></td></tr>
+<tr class="memdesc:a2009432dbb2fe7fb43f19e3c5f6ad3b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Записывает найденные адреса отмеченных значений в TSV-файл.  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a39121f990c6c5d6d23d922b75ae029a0" name="a39121f990c6c5d6d23d922b75ae029a0"></a>
@@ -176,20 +176,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Extract printable ASCII and UTF-16LE strings from memory dumps. </p>
+<p>Извлекает печатные ASCII и UTF-16LE строки из файлов дампа памяти. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">regions</td><td>Dump files and original address ranges to scan. </td></tr>
-    <tr><td class="paramname">stringsReport</td><td>Path to the full TSV string report. </td></tr>
-    <tr><td class="paramname">hitsReport</td><td>Path to the TSV report containing suspicious strings only. </td></tr>
-    <tr><td class="paramname">options</td><td>Scan limits. </td></tr>
+    <tr><td class="paramname">regions</td><td>Метаданные dump-файлов и их исходные адресные диапазоны. </td></tr>
+    <tr><td class="paramname">stringsReport</td><td>Путь к TSV-отчёту со всеми найденными строками. </td></tr>
+    <tr><td class="paramname">hitsReport</td><td>Путь к TSV-отчёту только с подозрительными строками. </td></tr>
+    <tr><td class="paramname">options</td><td>Ограничения сканирования. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Counters describing the scan result.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Счётчики найденных строк и подозрительных совпадений.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>when an input or output file cannot be opened. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>если входной dump-файл или выходной отчёт нельзя открыть. </td></tr>
   </table>
   </dd>
 </dl>
@@ -211,14 +211,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Check one extracted string against built-in suspicious indicators. </p>
+<p>Проверяет извлечённую строку по встроенным подозрительным индикаторам. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value</td><td>String extracted from a dump. </td></tr>
+    <tr><td class="paramname">value</td><td>Строка, извлечённая из memory dump. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True when value contains a keyword such as eval(, fetch(, <a href="http://">http://</a>, powershell, or ActiveXObject. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true, если строка содержит индикаторы вроде <span class="tt">eval(</span>, <span class="tt">fetch(</span>, <span class="tt"><a href="http://">http://</a></span>, <span class="tt">powershell</span> или <span class="tt">ActiveXObject</span>. </dd></dl>
 
 </div>
 </div>
@@ -246,19 +246,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Search raw dumps for values pinned through mark(name, value). </p>
+<p>Ищет в raw dump значения, закреплённые через <span class="tt">mark(name, value)</span>. </p>
+<p>Значение ищется в двух вариантах: как ASCII-байты и как UTF-16LE. Это помогает находить строки, которые V8 хранит в разных внутренних представлениях.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">regions</td><td>Dump files and original address ranges to scan. </td></tr>
-    <tr><td class="paramname">trackedValues</td><td>Values collected by the JavaScript sandbox. </td></tr>
-    <tr><td class="paramname">maxHitsPerValue</td><td>Maximum number of addresses returned for each value. </td></tr>
+    <tr><td class="paramname">regions</td><td>Метаданные dump-файлов и их исходные адресные диапазоны. </td></tr>
+    <tr><td class="paramname">trackedValues</td><td>Значения, собранные JavaScript-песочницей. </td></tr>
+    <tr><td class="paramname">maxHitsPerValue</td><td>Максимальное количество адресов для одного значения. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Locations where tracked value previews were found.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Список мест, где были найдены bytes preview отмеченных значений.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>when a dump file cannot be opened. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>если dump-файл нельзя открыть. </td></tr>
   </table>
   </dd>
 </dl>
@@ -284,17 +285,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Write tracked value locations as TSV. </p>
+<p>Записывает найденные адреса отмеченных значений в TSV-файл. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">path</td><td>Output TSV file path. </td></tr>
-    <tr><td class="paramname">locations</td><td>Locations to write.</td></tr>
+    <tr><td class="paramname">path</td><td>Путь к выходному TSV-файлу. </td></tr>
+    <tr><td class="paramname">locations</td><td>Список найденных совпадений.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>when the output file cannot be opened. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>если выходной файл нельзя открыть или записать. </td></tr>
   </table>
   </dd>
 </dl>

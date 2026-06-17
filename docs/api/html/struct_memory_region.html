@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('struct_memory_
 </div><!--header-->
 <div class="contents">
 
-<p>One virtual memory mapping from a Linux /proc maps file.  
+<p>Один виртуальный memory mapping из Linux-файла <span class="tt">/proc/.../maps</span>.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="memory__dumper_8hpp_source.html">memory_dumper.hpp</a>&gt;</code></p>
@@ -127,23 +127,23 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('struct_memory_
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a3a69e9e744eafbc2471e19eec3a7d797" id="r_a3a69e9e744eafbc2471e19eec3a7d797"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a3a69e9e744eafbc2471e19eec3a7d797">readable</a> () const</td></tr>
-<tr class="memdesc:a3a69e9e744eafbc2471e19eec3a7d797"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether the mapping has read permission.  <br /></td></tr>
+<tr class="memdesc:a3a69e9e744eafbc2471e19eec3a7d797"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверяет, можно ли читать регион памяти.  <br /></td></tr>
 <tr class="memitem:a4e8434d91038f8f895bc93b62ae3bd66" id="r_a4e8434d91038f8f895bc93b62ae3bd66"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#a4e8434d91038f8f895bc93b62ae3bd66">size</a> () const</td></tr>
-<tr class="memdesc:a4e8434d91038f8f895bc93b62ae3bd66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the mapping size in bytes.  <br /></td></tr>
+<tr class="memdesc:a4e8434d91038f8f895bc93b62ae3bd66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Считает размер региона в байтах.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a00a91644412f1859a99852996de2635e" id="r_a00a91644412f1859a99852996de2635e"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#a00a91644412f1859a99852996de2635e">start</a> = 0</td></tr>
-<tr class="memdesc:a00a91644412f1859a99852996de2635e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inclusive start address of the mapping.  <br /></td></tr>
+<tr class="memdesc:a00a91644412f1859a99852996de2635e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Начальный виртуальный адрес региона включительно.  <br /></td></tr>
 <tr class="memitem:a338dcf597f45794bee50f859c3e3bfd4" id="r_a338dcf597f45794bee50f859c3e3bfd4"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#a338dcf597f45794bee50f859c3e3bfd4">end</a> = 0</td></tr>
-<tr class="memdesc:a338dcf597f45794bee50f859c3e3bfd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exclusive end address of the mapping.  <br /></td></tr>
+<tr class="memdesc:a338dcf597f45794bee50f859c3e3bfd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конечный виртуальный адрес региона, не включая сам адрес end.  <br /></td></tr>
 <tr class="memitem:a3eb629a14129a29fda2fa8f73a68fdc9" id="r_a3eb629a14129a29fda2fa8f73a68fdc9"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a3eb629a14129a29fda2fa8f73a68fdc9">permissions</a></td></tr>
-<tr class="memdesc:a3eb629a14129a29fda2fa8f73a68fdc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linux permission string, for example rw-p or r-xp.  <br /></td></tr>
+<tr class="memdesc:a3eb629a14129a29fda2fa8f73a68fdc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Строка прав доступа Linux, например <span class="tt">rw-p</span> или <span class="tt">r-xp</span>.  <br /></td></tr>
 <tr class="memitem:a41a1485a2f6ad49db60c2efe031e2373" id="r_a41a1485a2f6ad49db60c2efe031e2373"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a41a1485a2f6ad49db60c2efe031e2373">path</a></td></tr>
-<tr class="memdesc:a41a1485a2f6ad49db60c2efe031e2373"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional mapped file path or pseudo-name such as [heap].  <br /></td></tr>
+<tr class="memdesc:a41a1485a2f6ad49db60c2efe031e2373"><td class="mdescLeft">&#160;</td><td class="mdescRight">Путь к отображённому файлу или псевдоимя региона, например <span class="tt">[heap]</span>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>One virtual memory mapping from a Linux /proc maps file. </p>
+<div class="textblock"><p>Один виртуальный memory mapping из Linux-файла <span class="tt">/proc/.../maps</span>. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a3a69e9e744eafbc2471e19eec3a7d797" name="a3a69e9e744eafbc2471e19eec3a7d797"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3a69e9e744eafbc2471e19eec3a7d797">&#9670;&#160;</a></span>readable()</h2>
@@ -160,8 +160,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Check whether the mapping has read permission. </p>
-<dl class="section return"><dt>Returns</dt><dd>True when the first permission character is r. </dd></dl>
+<p>Проверяет, можно ли читать регион памяти. </p>
+<dl class="section return"><dt>Returns</dt><dd>true, если первый символ permissions равен <span class="tt">r</span>. </dd></dl>
 
 </div>
 </div>
@@ -180,8 +180,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Compute the mapping size in bytes. </p>
-<dl class="section return"><dt>Returns</dt><dd>end - start when the range is valid, otherwise zero. </dd></dl>
+<p>Считает размер региона в байтах. </p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt"><a class="el" href="#a338dcf597f45794bee50f859c3e3bfd4" title="Конечный виртуальный адрес региона, не включая сам адрес end.">end</a> - <a class="el" href="#a00a91644412f1859a99852996de2635e" title="Начальный виртуальный адрес региона включительно.">start</a></span> для корректного диапазона, иначе ноль. </dd></dl>
 
 </div>
 </div>
@@ -198,7 +198,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Exclusive end address of the mapping. </p>
+<p>Конечный виртуальный адрес региона, не включая сам адрес end. </p>
 
 </div>
 </div>
@@ -214,7 +214,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Optional mapped file path or pseudo-name such as [heap]. </p>
+<p>Путь к отображённому файлу или псевдоимя региона, например <span class="tt">[heap]</span>. </p>
 
 </div>
 </div>
@@ -230,7 +230,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Linux permission string, for example rw-p or r-xp. </p>
+<p>Строка прав доступа Linux, например <span class="tt">rw-p</span> или <span class="tt">r-xp</span>. </p>
 
 </div>
 </div>
@@ -246,7 +246,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Inclusive start address of the mapping. </p>
+<p>Начальный виртуальный адрес региона включительно. </p>
 
 </div>
 </div>

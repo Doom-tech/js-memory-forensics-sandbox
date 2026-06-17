@@ -8,69 +8,70 @@
 #include <vector>
 
 /**
- * @brief Limits used by raw-memory string extraction.
+ * @brief Настройки извлечения строк из raw memory dump.
  */
 struct StringScanOptions {
-    /** @brief Minimal printable string length to write into reports. */
+    /** @brief Минимальная длина печатной строки, которая попадёт в отчёт. */
     int minLength = 6;
 
-    /** @brief Hard cap for the total number of strings written to strings.tsv. */
+    /** @brief Максимальное количество строк, записываемых в `strings.tsv`. */
     size_t maxStrings = 50000;
 };
 
 /**
- * @brief Counters collected while scanning memory dumps.
+ * @brief Счётчики, собранные во время сканирования дампов памяти.
  */
 struct StringScanSummary {
-    /** @brief Number of ASCII strings written to the report. */
+    /** @brief Количество ASCII-строк, записанных в отчёт. */
     size_t asciiStrings = 0;
 
-    /** @brief Number of UTF-16LE strings written to the report. */
+    /** @brief Количество UTF-16LE-строк, записанных в отчёт. */
     size_t utf16Strings = 0;
 
-    /** @brief Number of strings copied to hits.tsv because of suspicious terms. */
+    /** @brief Количество строк, попавших в `hits.tsv` из-за подозрительных слов. */
     size_t suspiciousHits = 0;
 };
 
 /**
- * @brief Raw-memory location of a value previously marked in JavaScript.
+ * @brief Место в raw dump, где найдено значение, ранее отмеченное в JavaScript.
  */
 struct TrackedLocation {
-    /** @brief Mark label supplied by the analyzed script. */
+    /** @brief Метка, которую скрипт передал в `mark(name, value)`. */
     std::string name;
 
-    /** @brief Printable bytes searched in the dump file. */
+    /** @brief Короткое текстовое представление значения, которое искали в дампе. */
     std::string preview;
 
-    /** @brief Encoding that matched the bytes, usually ascii or utf16le. */
+    /** @brief Кодировка найденных байтов: обычно `ascii` или `utf16le`. */
     std::string encoding;
 
-    /** @brief Dump file name where the value was found. */
+    /** @brief Имя dump-файла, где найдено совпадение. */
     std::string dumpFile;
 
-    /** @brief Virtual address corresponding to the match. */
+    /** @brief Виртуальный адрес процесса, соответствующий найденному совпадению. */
     std::uint64_t address = 0;
 };
 
 /**
- * @brief Check one extracted string against built-in suspicious indicators.
+ * @brief Проверяет извлечённую строку по встроенным подозрительным индикаторам.
  *
- * @param value String extracted from a dump.
- * @return True when value contains a keyword such as eval(, fetch(, http://,
- *         powershell, or ActiveXObject.
+ * @param value Строка, извлечённая из memory dump.
+ * @return true, если строка содержит индикаторы вроде `eval(`, `fetch(`,
+ *         `http://`, `powershell` или `ActiveXObject`.
  */
 bool isSuspiciousString(const std::string& value);
 
 /**
- * @brief Extract printable ASCII and UTF-16LE strings from memory dumps.
+ * @brief Извлекает печатные ASCII и UTF-16LE строки из файлов дампа памяти.
  *
- * @param regions Dump files and original address ranges to scan.
- * @param stringsReport Path to the full TSV string report.
- * @param hitsReport Path to the TSV report containing suspicious strings only.
- * @param options Scan limits.
- * @return Counters describing the scan result.
+ * @param regions Метаданные dump-файлов и их исходные адресные диапазоны.
+ * @param stringsReport Путь к TSV-отчёту со всеми найденными строками.
+ * @param hitsReport Путь к TSV-отчёту только с подозрительными строками.
+ * @param options Ограничения сканирования.
+ * @return Счётчики найденных строк и подозрительных совпадений.
  *
- * @throws std::runtime_error when an input or output file cannot be opened.
+ * @throws std::runtime_error если входной dump-файл или выходной отчёт нельзя
+ *         открыть.
  */
 StringScanSummary extractStrings(
     const std::vector<DumpedRegion>& regions,
@@ -80,14 +81,17 @@ StringScanSummary extractStrings(
 );
 
 /**
- * @brief Search raw dumps for values pinned through mark(name, value).
+ * @brief Ищет в raw dump значения, закреплённые через `mark(name, value)`.
  *
- * @param regions Dump files and original address ranges to scan.
- * @param trackedValues Values collected by the JavaScript sandbox.
- * @param maxHitsPerValue Maximum number of addresses returned for each value.
- * @return Locations where tracked value previews were found.
+ * Значение ищется в двух вариантах: как ASCII-байты и как UTF-16LE. Это помогает
+ * находить строки, которые V8 хранит в разных внутренних представлениях.
  *
- * @throws std::runtime_error when a dump file cannot be opened.
+ * @param regions Метаданные dump-файлов и их исходные адресные диапазоны.
+ * @param trackedValues Значения, собранные JavaScript-песочницей.
+ * @param maxHitsPerValue Максимальное количество адресов для одного значения.
+ * @return Список мест, где были найдены bytes preview отмеченных значений.
+ *
+ * @throws std::runtime_error если dump-файл нельзя открыть.
  */
 std::vector<TrackedLocation> locateTrackedValues(
     const std::vector<DumpedRegion>& regions,
@@ -96,12 +100,12 @@ std::vector<TrackedLocation> locateTrackedValues(
 );
 
 /**
- * @brief Write tracked value locations as TSV.
+ * @brief Записывает найденные адреса отмеченных значений в TSV-файл.
  *
- * @param path Output TSV file path.
- * @param locations Locations to write.
+ * @param path Путь к выходному TSV-файлу.
+ * @param locations Список найденных совпадений.
  *
- * @throws std::runtime_error when the output file cannot be opened.
+ * @throws std::runtime_error если выходной файл нельзя открыть или записать.
  */
 void writeTrackedLocations(
     const std::filesystem::path& path,

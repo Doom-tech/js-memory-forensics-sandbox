@@ -130,9 +130,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('memory__dumper
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aeb933b9f1ddc06222191c1fd1fec8432" id="r_aeb933b9f1ddc06222191c1fd1fec8432"><td class="memItemLeft">std::optional&lt; <a class="el" href="struct_memory_region.html">MemoryRegion</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aeb933b9f1ddc06222191c1fd1fec8432">parseMemoryMapLine</a> (const std::string &amp;line)</td></tr>
-<tr class="memdesc:aeb933b9f1ddc06222191c1fd1fec8432"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a single line from a Linux maps file into a <a class="el" href="struct_memory_region.html" title="One virtual memory mapping from a Linux /proc maps file.">MemoryRegion</a>.  <br /></td></tr>
+<tr class="memdesc:aeb933b9f1ddc06222191c1fd1fec8432"><td class="mdescLeft">&#160;</td><td class="mdescRight">Парсит одну строку Linux maps-файла в структуру <a class="el" href="struct_memory_region.html" title="Один виртуальный memory mapping из Linux-файла /proc/.../maps.">MemoryRegion</a>.  <br /></td></tr>
 <tr class="memitem:a10b4143953ddeff18a15c26b572709df" id="r_a10b4143953ddeff18a15c26b572709df"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a10b4143953ddeff18a15c26b572709df">hexAddress</a> (std::uint64_t value)</td></tr>
-<tr class="memdesc:a10b4143953ddeff18a15c26b572709df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format an address as a fixed-width hexadecimal string.  <br /></td></tr>
+<tr class="memdesc:a10b4143953ddeff18a15c26b572709df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Форматирует адрес как шестнадцатеричную строку фиксированной ширины.  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a10b4143953ddeff18a15c26b572709df" name="a10b4143953ddeff18a15c26b572709df"></a>
@@ -150,14 +150,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Format an address as a fixed-width hexadecimal string. </p>
+<p>Форматирует адрес как шестнадцатеричную строку фиксированной ширины. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value</td><td>Address value. </td></tr>
+    <tr><td class="paramname">value</td><td>Числовое значение адреса. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Text in the form 0x0000000000000000. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Строка вида <span class="tt">0x0000000000000000</span>. </dd></dl>
 
 </div>
 </div>
@@ -176,14 +176,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Convert a single line from a Linux maps file into a <a class="el" href="struct_memory_region.html" title="One virtual memory mapping from a Linux /proc maps file.">MemoryRegion</a>. </p>
+<p>Парсит одну строку Linux maps-файла в структуру <a class="el" href="struct_memory_region.html" title="Один виртуальный memory mapping из Linux-файла /proc/.../maps.">MemoryRegion</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">line</td><td>Raw line from a maps file. </td></tr>
+    <tr><td class="paramname">line</td><td>Сырая строка из <span class="tt">/proc/self/maps</span> или совместимого файла. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Parsed region, or std::nullopt for malformed input. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Распарсенный регион или std::nullopt, если строка битая. </dd></dl>
 
 </div>
 </div>

@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_v8_runti
 </div><!--header-->
 <div class="contents">
 
-<p>Process-wide V8 initialization guard.  
+<p>RAII-обёртка для глобальной инициализации V8 в процессе.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="js__sandbox_8hpp_source.html">js_sandbox.hpp</a>&gt;</code></p>
@@ -131,15 +131,15 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a7c22430dccf322a16ffaa12a8520a855" id="r_a7c22430dccf322a16ffaa12a8520a855"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7c22430dccf322a16ffaa12a8520a855">V8Runtime</a> (const char *executablePath, int maxOldSpaceMb)</td></tr>
-<tr class="memdesc:a7c22430dccf322a16ffaa12a8520a855"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize V8 and set the old-space limit.  <br /></td></tr>
+<tr class="memdesc:a7c22430dccf322a16ffaa12a8520a855"><td class="mdescLeft">&#160;</td><td class="mdescRight">Инициализирует V8 и задаёт лимит old-space heap.  <br /></td></tr>
 <tr class="memitem:af582316a64fdd1168edb3ca3fe5fa527" id="r_af582316a64fdd1168edb3ca3fe5fa527"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af582316a64fdd1168edb3ca3fe5fa527">~V8Runtime</a> ()</td></tr>
-<tr class="memdesc:af582316a64fdd1168edb3ca3fe5fa527"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shut down V8 platform state owned by this process.  <br /></td></tr>
+<tr class="memdesc:af582316a64fdd1168edb3ca3fe5fa527"><td class="mdescLeft">&#160;</td><td class="mdescRight">Завершает работу платформенной части V8, принадлежащей процессу.  <br /></td></tr>
 <tr class="memitem:ac486ed2a841173b6306938c98af48c2b" id="r_ac486ed2a841173b6306938c98af48c2b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac486ed2a841173b6306938c98af48c2b">V8Runtime</a> (const <a class="el" href="class_v8_runtime.html">V8Runtime</a> &amp;)=delete</td></tr>
 <tr class="memitem:aa2e998cb7fcee0362aa357cc0cf18ed3" id="r_aa2e998cb7fcee0362aa357cc0cf18ed3"><td class="memItemLeft"><a class="el" href="class_v8_runtime.html">V8Runtime</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aa2e998cb7fcee0362aa357cc0cf18ed3">operator=</a> (const <a class="el" href="class_v8_runtime.html">V8Runtime</a> &amp;)=delete</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Process-wide V8 initialization guard. </p>
-<p>Construct this object before creating <a class="el" href="class_js_sandbox.html" title="Restricted JavaScript executor used for memory-forensics analysis.">JsSandbox</a> instances and keep it alive until every sandbox has been destroyed. </p>
+<div class="textblock"><p>RAII-обёртка для глобальной инициализации V8 в процессе. </p>
+<p>Объект нужно создать до создания экземпляров <a class="el" href="class_js_sandbox.html" title="Ограниченный исполнитель JavaScript для форензического анализа памяти.">JsSandbox</a> и держать живым до тех пор, пока все песочницы не будут уничтожены. Так жизненный цикл V8 остаётся явным и не размазывается по коду. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7c22430dccf322a16ffaa12a8520a855" name="a7c22430dccf322a16ffaa12a8520a855"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7c22430dccf322a16ffaa12a8520a855">&#9670;&#160;</a></span>V8Runtime() <span class="overload">[1/2]</span></h2>
@@ -160,17 +160,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize V8 and set the old-space limit. </p>
+<p>Инициализирует V8 и задаёт лимит old-space heap. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">executablePath</td><td>Path to the current executable, used by V8 for ICU and startup data discovery. </td></tr>
-    <tr><td class="paramname">maxOldSpaceMb</td><td>Maximum old-space size in MiB.</td></tr>
+    <tr><td class="paramname">executablePath</td><td>Путь к текущему исполняемому файлу. V8 использует его для поиска ICU и startup data, если это требуется сборкой. </td></tr>
+    <tr><td class="paramname">maxOldSpaceMb</td><td>Максимальный размер old-space heap в мегабайтах.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>if the project was built without V8 support. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>если проект собран без поддержки V8 или лимит памяти задан некорректно. </td></tr>
   </table>
   </dd>
 </dl>
@@ -200,7 +200,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Shut down V8 platform state owned by this process. </p>
+<p>Завершает работу платформенной части V8, принадлежащей процессу. </p>
 
 </div>
 </div>

@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_js_sandb
 </div><!--header-->
 <div class="contents">
 
-<p>Restricted JavaScript executor used for memory-forensics analysis.  
+<p>Ограниченный исполнитель JavaScript для форензического анализа памяти.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="js__sandbox_8hpp_source.html">js_sandbox.hpp</a>&gt;</code></p>
@@ -131,21 +131,21 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8af43eb006c3d369307ac733f4dd16e3" id="r_a8af43eb006c3d369307ac733f4dd16e3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8af43eb006c3d369307ac733f4dd16e3">JsSandbox</a> (<a class="el" href="struct_sandbox_config.html">SandboxConfig</a> config)</td></tr>
-<tr class="memdesc:a8af43eb006c3d369307ac733f4dd16e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an isolated JavaScript context.  <br /></td></tr>
+<tr class="memdesc:a8af43eb006c3d369307ac733f4dd16e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создаёт изолированный JavaScript-контекст.  <br /></td></tr>
 <tr class="memitem:a0336d56cd7af2472e2c8eb64535fb00a" id="r_a0336d56cd7af2472e2c8eb64535fb00a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0336d56cd7af2472e2c8eb64535fb00a">~JsSandbox</a> ()</td></tr>
-<tr class="memdesc:a0336d56cd7af2472e2c8eb64535fb00a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispose the isolated JavaScript context.  <br /></td></tr>
+<tr class="memdesc:a0336d56cd7af2472e2c8eb64535fb00a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Освобождает context, isolate и закреплённые JS-значения.  <br /></td></tr>
 <tr class="memitem:a9e5a32322d01726094ea8a3c979eec30" id="r_a9e5a32322d01726094ea8a3c979eec30"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9e5a32322d01726094ea8a3c979eec30">JsSandbox</a> (const <a class="el" href="class_js_sandbox.html">JsSandbox</a> &amp;)=delete</td></tr>
 <tr class="memitem:a9ef733fcde6c8489e3d6886bf2494cff" id="r_a9ef733fcde6c8489e3d6886bf2494cff"><td class="memItemLeft"><a class="el" href="class_js_sandbox.html">JsSandbox</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a9ef733fcde6c8489e3d6886bf2494cff">operator=</a> (const <a class="el" href="class_js_sandbox.html">JsSandbox</a> &amp;)=delete</td></tr>
 <tr class="memitem:a1cf675dc0ff2e2608f3a843c52df8a19" id="r_a1cf675dc0ff2e2608f3a843c52df8a19"><td class="memItemLeft"><a class="el" href="struct_script_result.html">ScriptResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1cf675dc0ff2e2608f3a843c52df8a19">executeFile</a> (const std::string &amp;scriptPath)</td></tr>
-<tr class="memdesc:a1cf675dc0ff2e2608f3a843c52df8a19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile and run a JavaScript file.  <br /></td></tr>
+<tr class="memdesc:a1cf675dc0ff2e2608f3a843c52df8a19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Компилирует и запускает JavaScript-файл внутри песочницы.  <br /></td></tr>
 <tr class="memitem:a0f9c7f3192ef6a6e376ba74dfa44687b" id="r_a0f9c7f3192ef6a6e376ba74dfa44687b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0f9c7f3192ef6a6e376ba74dfa44687b">writeHeapSnapshot</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:a0f9c7f3192ef6a6e376ba74dfa44687b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serialize the current V8 heap graph as JSON.  <br /></td></tr>
+<tr class="memdesc:a0f9c7f3192ef6a6e376ba74dfa44687b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сохраняет текущий граф V8 heap в JSON-файл.  <br /></td></tr>
 <tr class="memitem:a0b4b045c61087f5dd7d571daf53e5468" id="r_a0b4b045c61087f5dd7d571daf53e5468"><td class="memItemLeft">const std::vector&lt; <a class="el" href="struct_tracked_value.html">TrackedValue</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0b4b045c61087f5dd7d571daf53e5468">trackedValues</a> () const</td></tr>
-<tr class="memdesc:a0b4b045c61087f5dd7d571daf53e5468"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return values pinned by mark(name, value).  <br /></td></tr>
+<tr class="memdesc:a0b4b045c61087f5dd7d571daf53e5468"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает значения, закреплённые через mark(name, value).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Restricted JavaScript executor used for memory-forensics analysis. </p>
-<p>The sandbox exposes only small helper functions: print, mark, and atob. It does not expose Node.js objects, filesystem APIs, networking APIs, or process globals. </p>
+<div class="textblock"><p>Ограниченный исполнитель JavaScript для форензического анализа памяти. </p>
+<p>Песочница создаёт отдельный V8 isolate и пустой context. В глобальный объект добавляются только небольшие helper-функции: <span class="tt">print</span>, <span class="tt">mark</span> и <span class="tt">atob</span>. Node.js API, файловая система, сеть и объект process в контекст не добавляются. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8af43eb006c3d369307ac733f4dd16e3" name="a8af43eb006c3d369307ac733f4dd16e3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8af43eb006c3d369307ac733f4dd16e3">&#9670;&#160;</a></span>JsSandbox() <span class="overload">[1/2]</span></h2>
@@ -170,16 +170,16 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Create an isolated JavaScript context. </p>
+<p>Создаёт изолированный JavaScript-контекст. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">config</td><td>Runtime limits for this context.</td></tr>
+    <tr><td class="paramname">config</td><td>Таймаут выполнения и лимит V8 heap.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>if V8 support is unavailable. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>если V8 недоступен или параметры лимитов некорректны. </td></tr>
   </table>
   </dd>
 </dl>
@@ -209,7 +209,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Dispose the isolated JavaScript context. </p>
+<p>Освобождает context, isolate и закреплённые JS-значения. </p>
 
 </div>
 </div>
@@ -254,14 +254,20 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Compile and run a JavaScript file. </p>
+<p>Компилирует и запускает JavaScript-файл внутри песочницы. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">scriptPath</td><td>Path to the input script. </td></tr>
+    <tr><td class="paramname">scriptPath</td><td>Путь к входному JavaScript-файлу. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Execution status, timeout flag, and diagnostic message. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Статус выполнения, флаг таймаута и диагностическое сообщение.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>если файл нельзя прочитать или V8 не может создать строку исходного кода. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -305,8 +311,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Return values pinned by mark(name, value). </p>
-<dl class="section return"><dt>Returns</dt><dd>Immutable list of tracked values collected during execution. </dd></dl>
+<p>Возвращает значения, закреплённые через mark(name, value). </p>
+<dl class="section return"><dt>Returns</dt><dd>Неизменяемый список значений, которые скрипт передал в mark(). </dd></dl>
 
 </div>
 </div>
@@ -325,16 +331,16 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Serialize the current V8 heap graph as JSON. </p>
+<p>Сохраняет текущий граф V8 heap в JSON-файл. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">path</td><td>Output file path for the heap snapshot. </td></tr>
+    <tr><td class="paramname">path</td><td>Путь к выходному файлу heap snapshot.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>when the snapshot cannot be written. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>если snapshot нельзя создать или записать. </td></tr>
   </table>
   </dd>
 </dl>

@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('struct_tracked
 </div><!--header-->
 <div class="contents">
 
-<p>Raw-memory location of a value previously marked in JavaScript.  
+<p>Место в raw dump, где найдено значение, ранее отмеченное в JavaScript.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="string__finder_8hpp_source.html">string_finder.hpp</a>&gt;</code></p>
@@ -127,18 +127,18 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('struct_tracked
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a317294f37fb194a7aff1b4368bf3276d" id="r_a317294f37fb194a7aff1b4368bf3276d"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a317294f37fb194a7aff1b4368bf3276d">name</a></td></tr>
-<tr class="memdesc:a317294f37fb194a7aff1b4368bf3276d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark label supplied by the analyzed script.  <br /></td></tr>
+<tr class="memdesc:a317294f37fb194a7aff1b4368bf3276d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Метка, которую скрипт передал в <span class="tt">mark(name, value)</span>.  <br /></td></tr>
 <tr class="memitem:a3d87813249395fe271ce27f09b8acae9" id="r_a3d87813249395fe271ce27f09b8acae9"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a3d87813249395fe271ce27f09b8acae9">preview</a></td></tr>
-<tr class="memdesc:a3d87813249395fe271ce27f09b8acae9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Printable bytes searched in the dump file.  <br /></td></tr>
+<tr class="memdesc:a3d87813249395fe271ce27f09b8acae9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Короткое текстовое представление значения, которое искали в дампе.  <br /></td></tr>
 <tr class="memitem:afdbf8c578f1a224bef604d9cb3f69dc0" id="r_afdbf8c578f1a224bef604d9cb3f69dc0"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#afdbf8c578f1a224bef604d9cb3f69dc0">encoding</a></td></tr>
-<tr class="memdesc:afdbf8c578f1a224bef604d9cb3f69dc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encoding that matched the bytes, usually ascii or utf16le.  <br /></td></tr>
+<tr class="memdesc:afdbf8c578f1a224bef604d9cb3f69dc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Кодировка найденных байтов: обычно <span class="tt">ascii</span> или <span class="tt">utf16le</span>.  <br /></td></tr>
 <tr class="memitem:a825f925dfa6ed971572884ca20ae64d6" id="r_a825f925dfa6ed971572884ca20ae64d6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a825f925dfa6ed971572884ca20ae64d6">dumpFile</a></td></tr>
-<tr class="memdesc:a825f925dfa6ed971572884ca20ae64d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump file name where the value was found.  <br /></td></tr>
+<tr class="memdesc:a825f925dfa6ed971572884ca20ae64d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Имя dump-файла, где найдено совпадение.  <br /></td></tr>
 <tr class="memitem:aa5c4f4241c9732bd7fbd12f0e3cd3a22" id="r_aa5c4f4241c9732bd7fbd12f0e3cd3a22"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#aa5c4f4241c9732bd7fbd12f0e3cd3a22">address</a> = 0</td></tr>
-<tr class="memdesc:aa5c4f4241c9732bd7fbd12f0e3cd3a22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual address corresponding to the match.  <br /></td></tr>
+<tr class="memdesc:aa5c4f4241c9732bd7fbd12f0e3cd3a22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Виртуальный адрес процесса, соответствующий найденному совпадению.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Raw-memory location of a value previously marked in JavaScript. </p>
+<div class="textblock"><p>Место в raw dump, где найдено значение, ранее отмеченное в JavaScript. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="aa5c4f4241c9732bd7fbd12f0e3cd3a22" name="aa5c4f4241c9732bd7fbd12f0e3cd3a22"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa5c4f4241c9732bd7fbd12f0e3cd3a22">&#9670;&#160;</a></span>address</h2>
@@ -152,7 +152,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Virtual address corresponding to the match. </p>
+<p>Виртуальный адрес процесса, соответствующий найденному совпадению. </p>
 
 </div>
 </div>
@@ -168,7 +168,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Dump file name where the value was found. </p>
+<p>Имя dump-файла, где найдено совпадение. </p>
 
 </div>
 </div>
@@ -184,7 +184,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Encoding that matched the bytes, usually ascii or utf16le. </p>
+<p>Кодировка найденных байтов: обычно <span class="tt">ascii</span> или <span class="tt">utf16le</span>. </p>
 
 </div>
 </div>
@@ -200,7 +200,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Mark label supplied by the analyzed script. </p>
+<p>Метка, которую скрипт передал в <span class="tt">mark(name, value)</span>. </p>
 
 </div>
 </div>
@@ -216,7 +216,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Printable bytes searched in the dump file. </p>
+<p>Короткое текстовое представление значения, которое искали в дампе. </p>
 
 </div>
 </div>

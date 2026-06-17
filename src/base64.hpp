@@ -3,12 +3,16 @@
 #include <string>
 
 /**
- * @brief Decode an RFC 4648 base64 string in strict mode.
+ * @brief Декодирует строку base64 по RFC 4648 в строгом режиме.
  *
- * @param encoded Input text. ASCII whitespace is ignored, padding is validated.
- * @return Decoded bytes stored in a std::string.
+ * Функция используется для реализации безопасного helper-а `atob` внутри
+ * V8-контекста. Пробельные ASCII-символы игнорируются, но padding проверяется
+ * строго, чтобы битые строки не проходили незаметно.
  *
- * @throws std::runtime_error if the input contains an invalid character or
- *         malformed padding.
+ * @param encoded Входная base64-строка.
+ * @return Декодированные байты, сохранённые в std::string.
+ *
+ * @throws std::runtime_error если строка содержит недопустимый символ,
+ *         неправильную длину или некорректный padding.
  */
 std::string decodeBase64Strict(const std::string& encoded);

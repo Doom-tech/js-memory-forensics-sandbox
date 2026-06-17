@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('base64_8hpp.ht
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:adb82976023c1443c821169ade1ad4a1b" id="r_adb82976023c1443c821169ade1ad4a1b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#adb82976023c1443c821169ade1ad4a1b">decodeBase64Strict</a> (const std::string &amp;encoded)</td></tr>
-<tr class="memdesc:adb82976023c1443c821169ade1ad4a1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode an RFC 4648 base64 string in strict mode.  <br /></td></tr>
+<tr class="memdesc:adb82976023c1443c821169ade1ad4a1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Декодирует строку base64 по RFC 4648 в строгом режиме.  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="adb82976023c1443c821169ade1ad4a1b" name="adb82976023c1443c821169ade1ad4a1b"></a>
@@ -143,17 +143,18 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Decode an RFC 4648 base64 string in strict mode. </p>
+<p>Декодирует строку base64 по RFC 4648 в строгом режиме. </p>
+<p>Функция используется для реализации безопасного helper-а <span class="tt">atob</span> внутри V8-контекста. Пробельные ASCII-символы игнорируются, но padding проверяется строго, чтобы битые строки не проходили незаметно.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">encoded</td><td>Input text. ASCII whitespace is ignored, padding is validated. </td></tr>
+    <tr><td class="paramname">encoded</td><td>Входная base64-строка. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Decoded bytes stored in a std::string.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Декодированные байты, сохранённые в std::string.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>if the input contains an invalid character or malformed padding. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>если строка содержит недопустимый символ, неправильную длину или некорректный padding. </td></tr>
   </table>
   </dd>
 </dl>

@@ -7,97 +7,101 @@
 #include <vector>
 
 /**
- * @brief One virtual memory mapping from a Linux /proc maps file.
+ * @brief Один виртуальный memory mapping из Linux-файла `/proc/.../maps`.
  */
 struct MemoryRegion {
-    /** @brief Inclusive start address of the mapping. */
+    /** @brief Начальный виртуальный адрес региона включительно. */
     std::uint64_t start = 0;
 
-    /** @brief Exclusive end address of the mapping. */
+    /** @brief Конечный виртуальный адрес региона, не включая сам адрес end. */
     std::uint64_t end = 0;
 
-    /** @brief Linux permission string, for example rw-p or r-xp. */
+    /** @brief Строка прав доступа Linux, например `rw-p` или `r-xp`. */
     std::string permissions;
 
-    /** @brief Optional mapped file path or pseudo-name such as [heap]. */
+    /** @brief Путь к отображённому файлу или псевдоимя региона, например `[heap]`. */
     std::string path;
 
     /**
-     * @brief Check whether the mapping has read permission.
+     * @brief Проверяет, можно ли читать регион памяти.
      *
-     * @return True when the first permission character is r.
+     * @return true, если первый символ permissions равен `r`.
      */
     bool readable() const;
 
     /**
-     * @brief Compute the mapping size in bytes.
+     * @brief Считает размер региона в байтах.
      *
-     * @return end - start when the range is valid, otherwise zero.
+     * @return `end - start` для корректного диапазона, иначе ноль.
      */
     std::uint64_t size() const;
 };
 
 /**
- * @brief Description of a memory region copied into an artifact file.
+ * @brief Описание региона памяти, который был скопирован в artifact-файл.
  */
 struct DumpedRegion {
-    /** @brief Original virtual memory mapping. */
+    /** @brief Исходный виртуальный регион памяти процесса. */
     MemoryRegion region;
 
-    /** @brief Path to the raw dump file on disk. */
+    /** @brief Путь к raw dump-файлу на диске. */
     std::filesystem::path dumpFile;
 
-    /** @brief Number of bytes actually read from the process. */
+    /** @brief Количество байтов, которые удалось прочитать из процесса. */
     std::uint64_t readableBytes = 0;
 };
 
 /**
- * @brief Convert a single line from a Linux maps file into a MemoryRegion.
+ * @brief Парсит одну строку Linux maps-файла в структуру MemoryRegion.
  *
- * @param line Raw line from a maps file.
- * @return Parsed region, or std::nullopt for malformed input.
+ * @param line Сырая строка из `/proc/self/maps` или совместимого файла.
+ * @return Распарсенный регион или std::nullopt, если строка битая.
  */
 std::optional<MemoryRegion> parseMemoryMapLine(const std::string& line);
 
 /**
- * @brief Read memory maps and dump readable regions from the current process.
+ * @brief Читает карту памяти процесса и дампит доступные для чтения регионы.
  */
 class MemoryDumper {
 public:
     /**
-     * @brief Build the default Linux maps path.
+     * @brief Возвращает стандартный путь к maps-файлу текущего Linux-процесса.
      *
-     * @return Path to the current process maps pseudo-file.
+     * @return Путь `/proc/self/maps`, собранный без захардкоженных разделителей.
      */
     static std::filesystem::path defaultLinuxMapsPath();
 
     /**
-     * @brief Create a dumper using a maps file path.
+     * @brief Создаёт dumper с заданным maps-файлом.
      *
-     * @param mapsPath Path to a Linux maps-compatible file.
+     * @param mapsPath Путь к Linux maps-совместимому файлу.
      */
     explicit MemoryDumper(std::filesystem::path mapsPath = defaultLinuxMapsPath());
 
     /**
-     * @brief Parse all valid mappings from a maps-compatible file.
+     * @brief Читает все корректные регионы из maps-файла.
      *
-     * @param mapsPath Path to a Linux maps-compatible file.
-     * @return List of parsed memory regions.
+     * Битые строки пропускаются, потому что в тестах и ручном анализе удобнее
+     * получить максимум валидных регионов, а не падать из-за одной плохой строки.
      *
-     * @throws std::runtime_error if the file cannot be opened.
+     * @param mapsPath Путь к Linux maps-совместимому файлу.
+     * @return Список распарсенных регионов памяти.
+     *
+     * @throws std::runtime_error если maps-файл нельзя открыть.
      */
     static std::vector<MemoryRegion> readProcessMaps(const std::filesystem::path& mapsPath);
 
     /**
-     * @brief Dump readable regions from the current process.
+     * @brief Дампит readable-регионы памяти текущего процесса.
      *
-     * @param outputDir Directory that receives raw region dump files.
-     * @param includeFileBacked True to dump file-backed mappings as well as
-     *        anonymous mappings.
-     * @param maxRegionBytes Optional cap for bytes copied from each mapping.
-     * @return Metadata for every dump file that was written.
+     * @param outputDir Папка, куда будут записаны raw dump-файлы.
+     * @param includeFileBacked true, если нужно дампить не только anonymous
+     *        regions, но и file-backed mappings библиотек/бинарей.
+     * @param maxRegionBytes Необязательный лимит байтов для каждого региона.
+     * @return Метаданные для каждого записанного dump-файла.
      *
-     * @throws std::runtime_error on unsupported platforms or filesystem errors.
+     * @throws std::runtime_error если платформа не поддерживается или произошла
+     *         ошибка файловой системы.
      */
     std::vector<DumpedRegion> dumpReadableRegions(
         const std::filesystem::path& outputDir,
@@ -113,9 +117,9 @@ private:
 };
 
 /**
- * @brief Format an address as a fixed-width hexadecimal string.
+ * @brief Форматирует адрес как шестнадцатеричную строку фиксированной ширины.
  *
- * @param value Address value.
- * @return Text in the form 0x0000000000000000.
+ * @param value Числовое значение адреса.
+ * @return Строка вида `0x0000000000000000`.
  */
 std::string hexAddress(std::uint64_t value);

@@ -7,26 +7,28 @@
 #include <vector>
 
 /**
- * @brief Process-wide V8 initialization guard.
+ * @brief RAII-обёртка для глобальной инициализации V8 в процессе.
  *
- * Construct this object before creating JsSandbox instances and keep it alive
- * until every sandbox has been destroyed.
+ * Объект нужно создать до создания экземпляров JsSandbox и держать живым до
+ * тех пор, пока все песочницы не будут уничтожены. Так жизненный цикл V8
+ * остаётся явным и не размазывается по коду.
  */
 class V8Runtime {
 public:
     /**
-     * @brief Initialize V8 and set the old-space limit.
+     * @brief Инициализирует V8 и задаёт лимит old-space heap.
      *
-     * @param executablePath Path to the current executable, used by V8 for ICU
-     *        and startup data discovery.
-     * @param maxOldSpaceMb Maximum old-space size in MiB.
+     * @param executablePath Путь к текущему исполняемому файлу. V8 использует
+     *        его для поиска ICU и startup data, если это требуется сборкой.
+     * @param maxOldSpaceMb Максимальный размер old-space heap в мегабайтах.
      *
-     * @throws std::runtime_error if the project was built without V8 support.
+     * @throws std::runtime_error если проект собран без поддержки V8 или лимит
+     *         памяти задан некорректно.
      */
     V8Runtime(const char* executablePath, int maxOldSpaceMb);
 
     /**
-     * @brief Shut down V8 platform state owned by this process.
+     * @brief Завершает работу платформенной части V8, принадлежащей процессу.
      */
     ~V8Runtime();
 
@@ -39,25 +41,26 @@ private:
 };
 
 /**
- * @brief Restricted JavaScript executor used for memory-forensics analysis.
+ * @brief Ограниченный исполнитель JavaScript для форензического анализа памяти.
  *
- * The sandbox exposes only small helper functions: print, mark, and atob. It
- * does not expose Node.js objects, filesystem APIs, networking APIs, or process
- * globals.
+ * Песочница создаёт отдельный V8 isolate и пустой context. В глобальный объект
+ * добавляются только небольшие helper-функции: `print`, `mark` и `atob`.
+ * Node.js API, файловая система, сеть и объект process в контекст не добавляются.
  */
 class JsSandbox {
 public:
     /**
-     * @brief Create an isolated JavaScript context.
+     * @brief Создаёт изолированный JavaScript-контекст.
      *
-     * @param config Runtime limits for this context.
+     * @param config Таймаут выполнения и лимит V8 heap.
      *
-     * @throws std::runtime_error if V8 support is unavailable.
+     * @throws std::runtime_error если V8 недоступен или параметры лимитов
+     *         некорректны.
      */
     explicit JsSandbox(SandboxConfig config);
 
     /**
-     * @brief Dispose the isolated JavaScript context.
+     * @brief Освобождает context, isolate и закреплённые JS-значения.
      */
     ~JsSandbox();
 
@@ -65,25 +68,29 @@ public:
     JsSandbox& operator=(const JsSandbox&) = delete;
 
     /**
-     * @brief Compile and run a JavaScript file.
+     * @brief Компилирует и запускает JavaScript-файл внутри песочницы.
      *
-     * @param scriptPath Path to the input script.
-     * @return Execution status, timeout flag, and diagnostic message.
+     * @param scriptPath Путь к входному JavaScript-файлу.
+     * @return Статус выполнения, флаг таймаута и диагностическое сообщение.
+     *
+     * @throws std::runtime_error если файл нельзя прочитать или V8 не может
+     *         создать строку исходного кода.
      */
     ScriptResult executeFile(const std::string& scriptPath);
 
     /**
-     * @brief Serialize the current V8 heap graph as JSON.
+     * @brief Сохраняет текущий граф V8 heap в JSON-файл.
      *
-     * @param path Output file path for the heap snapshot.
-     * @throws std::runtime_error when the snapshot cannot be written.
+     * @param path Путь к выходному файлу heap snapshot.
+     *
+     * @throws std::runtime_error если snapshot нельзя создать или записать.
      */
     void writeHeapSnapshot(const std::string& path);
 
     /**
-     * @brief Return values pinned by mark(name, value).
+     * @brief Возвращает значения, закреплённые через mark(name, value).
      *
-     * @return Immutable list of tracked values collected during execution.
+     * @return Неизменяемый список значений, которые скрипт передал в mark().
      */
     const std::vector<TrackedValue>& trackedValues() const;
 

@@ -3,40 +3,40 @@
 #include <string>
 
 /**
- * @brief Runtime limits for the JavaScript sandbox.
+ * @brief Ограничения ресурсов для JavaScript-песочницы.
  */
 struct SandboxConfig {
-    /** @brief Maximum wall-clock execution time for one script, in milliseconds. */
+    /** @brief Максимальное время выполнения одного скрипта в миллисекундах. */
     int timeoutMs = 2000;
 
-    /** @brief V8 old-space limit in MiB. */
+    /** @brief Лимит V8 old-space heap в мегабайтах. */
     int maxOldSpaceMb = 64;
 };
 
 /**
- * @brief JavaScript value pinned by the analyzed script through mark(name, value).
+ * @brief JavaScript-значение, закреплённое через вызов mark(name, value).
  */
 struct TrackedValue {
-    /** @brief Analyst-supplied label for the value. */
+    /** @brief Имя или метка значения, которую передал аналитик. */
     std::string name;
 
-    /** @brief Printable representation used for raw-memory lookup. */
+    /** @brief Текстовое представление значения для поиска в raw memory dump. */
     std::string preview;
 
-    /** @brief V8 identity hash for objects, or zero for primitive values. */
+    /** @brief V8 identity hash для объектов или ноль для примитивных значений. */
     int identityHash = 0;
 };
 
 /**
- * @brief Result of compiling and executing one JavaScript file.
+ * @brief Результат компиляции и выполнения одного JavaScript-файла.
  */
 struct ScriptResult {
-    /** @brief True when the script compiled and finished without an exception. */
+    /** @brief true, если скрипт скомпилировался и завершился без исключения. */
     bool ok = false;
 
-    /** @brief True when execution was interrupted by the watchdog timeout. */
+    /** @brief true, если выполнение остановил watchdog по таймауту. */
     bool timedOut = false;
 
-    /** @brief Human-readable status or exception text. */
+    /** @brief Текстовый статус выполнения или сообщение об ошибке. */
     std::string message;
 };
