@@ -127,7 +127,10 @@ void writeMainReport(
     const std::vector<TrackedValue>& trackedValues,
     const std::vector<TrackedLocation>& trackedLocations,
     bool heapSnapshotWritten,
-    const std::string& heapSnapshotError
+    const std::string& heapSnapshotError,
+    const std::string& memoryDumpError,
+    const std::string& stringExtractionError,
+    const std::string& trackedLocationError
 ) {
     const std::filesystem::path reportPath = config.outputDir / "report.md";
     std::ofstream report(reportPath);
@@ -156,11 +159,17 @@ void writeMainReport(
     report << "- Readable bytes copied: `" << totalReadable << "`\n";
     report << "- File-backed mappings included: `"
            << (config.includeFileBacked ? "yes" : "no") << "`\n\n";
+    if (!memoryDumpError.empty()) {
+        report << "- Memory dump error: `" << memoryDumpError << "`\n\n";
+    }
 
     report << "## Extracted Strings\n\n";
     report << "- ASCII strings: `" << scanSummary.asciiStrings << "`\n";
     report << "- UTF-16LE strings: `" << scanSummary.utf16Strings << "`\n";
     report << "- Suspicious keyword hits: `" << scanSummary.suspiciousHits << "`\n\n";
+    if (!stringExtractionError.empty()) {
+        report << "- String extraction error: `" << stringExtractionError << "`\n\n";
+    }
 
     report << "## Tracked JS Values\n\n";
     if (trackedValues.empty()) {
@@ -174,6 +183,9 @@ void writeMainReport(
             report << "\n";
         }
         report << "\nTracked value memory hits: `" << trackedLocations.size() << "`\n\n";
+    }
+    if (!trackedLocationError.empty()) {
+        report << "- Tracked value lookup error: `" << trackedLocationError << "`\n\n";
     }
 
     report << "## Artifacts\n\n";
@@ -203,19 +215,35 @@ int main(int argc, char** argv) {
         JsSandbox sandbox({app.timeoutMs, app.maxOldSpaceMb});
 
         std::cout << "[*] Running script in restricted V8 context\n";
-        ScriptResult result = sandbox.executeFile(app.scriptPath.string());
+        ScriptResult result;
+        bool scriptWasLoaded = false;
+        try {
+            result = sandbox.executeFile(app.scriptPath.string());
+            scriptWasLoaded = true;
+        } catch (const std::exception& error) {
+            result.ok = false;
+            result.message = error.what();
+        }
         std::cout << "[*] " << result.message << "\n";
 
         std::vector<DumpedRegion> dumpedRegions;
-        if (app.dumpMemory) {
+        std::string memoryDumpError;
+        if (app.dumpMemory && scriptWasLoaded) {
             std::cout << "[*] Dumping readable memory regions\n";
-            MemoryDumper dumper(app.mapsPath);
-            dumpedRegions = dumper.dumpReadableRegions(
-                app.outputDir / "memory",
-                app.includeFileBacked,
-                app.maxRegionBytes
-            );
-            std::cout << "[*] Dumped regions: " << dumpedRegions.size() << "\n";
+            try {
+                MemoryDumper dumper(app.mapsPath);
+                dumpedRegions = dumper.dumpReadableRegions(
+                    app.outputDir / "memory",
+                    app.includeFileBacked,
+                    app.maxRegionBytes
+                );
+                std::cout << "[*] Dumped regions: " << dumpedRegions.size() << "\n";
+            } catch (const std::exception& error) {
+                memoryDumpError = error.what();
+                std::cout << "[!] Memory dump was not written: " << memoryDumpError << "\n";
+            }
+        } else if (app.dumpMemory && !scriptWasLoaded) {
+            memoryDumpError = "script was not loaded, memory dump was skipped";
         }
 
         bool heapSnapshotWritten = false;
@@ -233,21 +261,55 @@ int main(int argc, char** argv) {
 
         StringScanSummary scanSummary;
         std::vector<TrackedLocation> trackedLocations;
-        if (!dumpedRegions.empty()) {
-            std::cout << "[*] Extracting strings from memory dumps\n";
-            scanSummary = extractStrings(
-                dumpedRegions,
-                app.outputDir / "strings.tsv",
-                app.outputDir / "hits.tsv",
-                {app.minStringLength, app.maxStrings}
-            );
+        std::string stringExtractionError;
+        std::string trackedLocationError;
+        std::cout << "[*] Writing string and tracked-value reports\n";
+        if (dumpedRegions.empty()) {
+            try {
+                scanSummary = extractStrings(
+                    dumpedRegions,
+                    app.outputDir / "strings.tsv",
+                    app.outputDir / "hits.tsv",
+                    {app.minStringLength, app.maxStrings}
+                );
+            } catch (const std::exception& error) {
+                stringExtractionError = error.what();
+                std::cout << "[!] Empty string reports were not written: "
+                          << stringExtractionError << "\n";
+            }
 
-            trackedLocations = locateTrackedValues(
-                dumpedRegions,
-                sandbox.trackedValues(),
-                8
-            );
-            writeTrackedLocations(app.outputDir / "tracked_locations.tsv", trackedLocations);
+            try {
+                writeTrackedLocations(app.outputDir / "tracked_locations.tsv", {});
+            } catch (const std::exception& error) {
+                trackedLocationError = error.what();
+                std::cout << "[!] Empty tracked value report was not written: "
+                          << trackedLocationError << "\n";
+            }
+        } else {
+            std::cout << "[*] Extracting strings from memory dumps\n";
+            try {
+                scanSummary = extractStrings(
+                    dumpedRegions,
+                    app.outputDir / "strings.tsv",
+                    app.outputDir / "hits.tsv",
+                    {app.minStringLength, app.maxStrings}
+                );
+            } catch (const std::exception& error) {
+                stringExtractionError = error.what();
+                std::cout << "[!] String extraction failed: " << stringExtractionError << "\n";
+            }
+
+            try {
+                trackedLocations = locateTrackedValues(
+                    dumpedRegions,
+                    sandbox.trackedValues(),
+                    8
+                );
+                writeTrackedLocations(app.outputDir / "tracked_locations.tsv", trackedLocations);
+            } catch (const std::exception& error) {
+                trackedLocationError = error.what();
+                std::cout << "[!] Tracked value lookup failed: " << trackedLocationError << "\n";
+            }
         }
 
         writeMainReport(
@@ -258,11 +320,17 @@ int main(int argc, char** argv) {
             sandbox.trackedValues(),
             trackedLocations,
             heapSnapshotWritten,
-            heapSnapshotError
+            heapSnapshotError,
+            memoryDumpError,
+            stringExtractionError,
+            trackedLocationError
         );
 
         std::cout << "[*] Report: " << (app.outputDir / "report.md") << "\n";
-        return result.ok ? 0 : 2;
+        return result.ok && memoryDumpError.empty() &&
+                       stringExtractionError.empty() && trackedLocationError.empty()
+                   ? 0
+                   : 2;
     } catch (const std::exception& error) {
         std::cerr << "error: " << error.what() << "\n";
         printHelp();

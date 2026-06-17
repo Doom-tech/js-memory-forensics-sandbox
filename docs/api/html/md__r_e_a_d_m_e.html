@@ -253,6 +253,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('md__r_e_a_d_m_
 <li><span class="tt">tracked_locations.tsv</span> — где нашлись значения, отмеченные через <span class="tt">mark</span>;</li>
 <li><span class="tt">heap_snapshot.json</span> — снимок heap в формате V8.</li>
 </ul>
+<p>Если memory dump отключён или недоступен на текущей ОС, TSV-файлы всё равно создаются с заголовками, а причина пропуска пишется в <span class="tt">report.md</span>.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
 Мини-API внутри JS</h1>
 <p>В глобальном объекте специально оставлены только небольшие helper-функции:</p>
